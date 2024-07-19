@@ -101,20 +101,20 @@ int parse_netdat(int s, const char* message) {
     unsigned short year;
     char tel_num[13];
     int aa;
-    char kakashka[strlen(message) + 1];
-    memset(kakashka, 0, sizeof(kakashka));
+    char not_parsed[strlen(message) + 1];
+    memset(not_parsed, 0, sizeof(not_parsed));
     char message_text[strlen(message) + 1];
     memset(message_text, 0, sizeof(message_text));
 
-    int govno = sscanf(message, "%d.%d.%hu %d %[^\n]", &day, &month, &year, &aa, kakashka);
+    int return_code = sscanf(message, "%d.%d.%hu %d %[^\n]", &day, &month, &year, &aa, not_parsed);
     int index_parse = 0 ;
-    for (; kakashka[index_parse] != ' '; index_parse++){
-        tel_num[index_parse] = kakashka[index_parse];
+    for (; not_parsed[index_parse] != ' '; index_parse++){
+        tel_num[index_parse] = not_parsed[index_parse];
     }
     index_parse++;
     int ia = 0;
-    for  (; kakashka[index_parse] != 0; index_parse++, ia++) {
-        message_text[ia] = kakashka[index_parse];
+    for  (; not_parsed[index_parse] != 0; index_parse++, ia++) {
+        message_text[ia] = not_parsed[index_parse];
     }
     tel_num[12] = '\0';
 
